@@ -1,14 +1,12 @@
 import {configureStore, combineReducers} from "@reduxjs/toolkit";
-
-import tSlice from "../reducers/tSlice";
-
+import todoSlice from "../reducers/todoSlice";
 
 const rootReducer = combineReducers({
-    toolkit: tSlice,
+    oneSlice: todoSlice,
 })
 
 
 
-export  const store = configureStore({
-reducer: rootReducer,
+export const store = configureStore({
+    reducer: rootReducer
 })

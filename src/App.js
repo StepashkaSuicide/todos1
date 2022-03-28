@@ -1,37 +1,24 @@
-import './App.css';
-import React from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {addTodo, decrement, increment, removeTodo} from "./reducers/tSlice";
-
-
-
-
+import React, {useState} from 'react';
+import s from './App.module.css'
+import TodoList from "./components/TodoList";
+import InputField from "./components/InputField";
+import {addTodo} from "./reducers/todoSlice";
+import {useDispatch} from "react-redux";
 
 const App = () => {
-    const count = useSelector(state => state.toolkit.count)
-    const todos = useSelector(state => state.toolkit.todos)
-
+const [text, setText] = useState('')
     const dispatch = useDispatch()
+    const addTask = () => {
+        dispatch(addTodo({text}))
+        setText('')
+    }
 
-
-  return (
-      <div>
-          <h1>Счетчик  {count} </h1>
-          <div>
-              <button onClick={() => dispatch(increment())} > Повысить </button>
-              <button onClick={() => dispatch(decrement())} > Уменьшить </button>
-              <button onClick={() => dispatch(removeTodo())} > Удалить </button>
-              <button onClick={() => dispatch(addTodo(prompt()))} > Добавить </button>
-          </div>
-
-          <ul>
-              {todos.map(todo =>
-                  <li key={todo}>{todo}</li>)}
-          </ul>
-      </div>
-
-
-  );
-}
-
+    return (
+        <div className={s.border}>
+            <InputField text={text} handleInput={setText} handleSubmit={addTask}/>
+                <TodoList/>
+            </div>
+    );
+};
 export default App;
+

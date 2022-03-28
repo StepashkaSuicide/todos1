@@ -1,0 +1,26 @@
+
+.tor {
+
+
+    color: #ff0000;
+    cursor: pointer;
+
+
+
+}
+
+input:checked + span {
+    text-decoration: line-through;
+}
+
+
+.button {
+    display: grid;
+
+    align-content: space-between;
+
+}
+
+input {
+    margin-bottom: 5px;
+}
