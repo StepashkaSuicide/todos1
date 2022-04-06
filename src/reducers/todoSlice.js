@@ -2,15 +2,11 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 
 export const fetchTodos = createAsyncThunk(
-
     'todos/fetchTodos',
     async function (_, {rejectWithValue}) {
-
         try {
-            const response = await fetch('https://my-json-server.typicode.com/falk20/demo/todos')
-            console.log(response)
+            const response = await fetch('https://my-json-server.typicode.com/falk20/demo/todos/')
             if (!response.ok) {
-
                 throw new Error('ServerError!')
             }
             const data = await response.json()
@@ -56,16 +52,20 @@ export const toggleStatus = createAsyncThunk(
                 },
                 body: JSON.stringify({
                     active: !todo.active,
+
                 })
             })
+
             if (!response.ok) {
                 throw new Error(`Can't toggle status. Server error`)
             }
-            const data = await response.json()
+
             dispatch(toggleCompleteTodo({id}))
+
 
         } catch (error) {
             return rejectWithValue(error.message)
+
         }
     }
 )
@@ -76,6 +76,7 @@ export const addNewTodo = createAsyncThunk(
         try {
             const todo = {
                 text: text,
+                userId: 1,
                 active: false,
             }
             const response = await fetch('https://my-json-server.typicode.com/falk20/demo/todos/', {
