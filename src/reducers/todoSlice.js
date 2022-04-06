@@ -2,11 +2,15 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 
 export const fetchTodos = createAsyncThunk(
+
     'todos/fetchTodos',
     async function (_, {rejectWithValue}) {
+
         try {
-            const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=10')
+            const response = await fetch('https://my-json-server.typicode.com/falk20/demo/todos')
+            console.log(response)
             if (!response.ok) {
+
                 throw new Error('ServerError!')
             }
             const data = await response.json()
@@ -23,7 +27,7 @@ export const deleteTodo = createAsyncThunk(
     async function (id, {rejectWithValue, dispatch}) {
 
         try {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+            const response = await fetch(`https://my-json-server.typicode.com/falk20/demo/todos/${id}`, {
                 method: 'DELETE',
             })
             if (!response.ok) {
@@ -45,13 +49,13 @@ export const toggleStatus = createAsyncThunk(
         const todo = getState().oneSlice.todos.find(todo => todo.id === id)
 
         try {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+            const response = await fetch(`https://my-json-server.typicode.com/falk20/demo/todos/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    completed: !todo.completed,
+                    active: !todo.active,
                 })
             })
             if (!response.ok) {
@@ -71,11 +75,10 @@ export const addNewTodo = createAsyncThunk(
     async function (text, {rejectWithValue, dispatch}) {
         try {
             const todo = {
-                title: text,
-                userId: 1,
-                completed: false,
+                text: text,
+                active: false,
             }
-            const response = await fetch('https://jsonplaceholder.typicode.com/todos', {
+            const response = await fetch('https://my-json-server.typicode.com/falk20/demo/todos/', {
                 method: 'POST',
                 headers: {
                    'Content-Type':  'application/json'
@@ -114,7 +117,7 @@ const todoSlice = createSlice({
         },
         toggleCompleteTodo(state, action) {
             const toggleTodo = state.todos.find(todo => todo.id === action.payload.id)
-            toggleTodo.completed = !toggleTodo.completed
+            toggleTodo.active = !toggleTodo.active
         }
     },
     extraReducers: {
