@@ -5,8 +5,6 @@ const rootReducer = combineReducers({
     oneSlice: todoSlice,
 })
 
-
-
 export const store = configureStore({
     reducer: rootReducer
 })
