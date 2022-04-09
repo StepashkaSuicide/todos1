@@ -9,9 +9,9 @@
 
 }
 
-input:checked + span {
-    text-decoration: line-through;
-}
+/*input:checked + span {*/
+/*    text-decoration: line-through;*/
+/*}*/
 
 
 .button {

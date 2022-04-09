@@ -2,10 +2,12 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 
 export const fetchTodos = createAsyncThunk(
+
     'todos/fetchTodos',
     async function (_, {rejectWithValue}) {
         try {
             const response = await fetch('https://my-json-server.typicode.com/falk20/demo/todos/')
+            console.log(response)
             if (!response.ok) {
                 throw new Error('ServerError!')
             }
@@ -119,6 +121,15 @@ const todoSlice = createSlice({
         toggleCompleteTodo(state, action) {
             const toggleTodo = state.todos.find(todo => todo.id === action.payload.id)
             toggleTodo.active = !toggleTodo.active
+        },
+        activeTodo(state) {
+            state.todos = state.todos.filter(todo => !todo.active)
+        },
+        allTodo(state) {
+            state.todos = state.todos.filter((todo) => todo)
+        },
+        completedTodo(state) {
+            state.todos = state.todos.filter(todo => todo.active)
         }
     },
     extraReducers: {
@@ -137,7 +148,7 @@ const todoSlice = createSlice({
 })
 
 export default todoSlice.reducer
-const {addTodo, removeTodo, toggleCompleteTodo} = todoSlice.actions
+export const {completedTodo, allTodo, activeTodo, addTodo, removeTodo, toggleCompleteTodo} = todoSlice.actions
 
 
 

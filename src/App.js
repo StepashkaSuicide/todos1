@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import s from './App.module.css'
 import TodoList from "./components/TodoList";
 import InputField from "./components/InputField";
-import {addNewTodo, addTodo, fetchTodos} from "./reducers/todoSlice";
+import {addNewTodo, fetchTodos} from "./reducers/todoSlice";
 import {useDispatch, useSelector} from "react-redux";
+import ActiveCompleted from "./components/ActiveComleted";
 
 const App = () => {
     const [text, setText] = useState('')
@@ -27,6 +28,7 @@ const App = () => {
             {status === 'loading' && <h2>Loading...</h2>}
             {error && <h2>An error occured:{error}</h2>}
             <TodoList/>
+            <ActiveCompleted/>
         </div>
     );
 };
